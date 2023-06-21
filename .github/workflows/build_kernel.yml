@@ -26,7 +26,7 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     env:
 
@@ -70,7 +70,10 @@ jobs:
 
         sudo apt install binutils make python3 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs -y
 
-        git clone https://codeberg.org/Mandi-Sa/clang --dept=1 -b amd64-kernel-arm
+        git clone https://github.com/kdrag0n/proton-clang --dept=1 -b master
+
+        make clean
+        make mrproper
 
     
 
@@ -92,13 +95,21 @@ jobs:
 
         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 
-        export PATH=$(pwd)/clang/bin/:$PATH
+        export PATH=$PATH:$(pwd)/proton-clang/bin/
+        export CC=clang
+        export CLANG_TRIPLE=aarch64-linux-gnu-
+        export CROSS_COMPILE=aarch64-linux-gnu-
+        export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+        export ARCH=arm64
+        export SUBARCH=arm64
+        export ANDROID_MAJOR_VERSION=r
+        export KCFLAGS=-w
 
-        make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
+        make O=out KCFLAGS=-w ARCH=arm64 CC="ccache clang" a10s_defconfig
 
-        make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
+        make O=out KCFLAGS=-w ARCH=arm64 CC="ccache clang" -j$(nproc --all)
 
-        cp out/arch/arm64/boot/Image* Image*
+        cp out/arch/arm64/boot/Image.gz Image.gz
 
     - name: Upload Kernel-SU
 
@@ -108,4 +119,4 @@ jobs:
 
         name: Images-${{ steps.get_time.outputs.TIME }}
 
-        path: "Image*"
+        path: "Image.gz"
