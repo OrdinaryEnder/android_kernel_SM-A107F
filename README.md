@@ -1,6 +1,6 @@
 # Samsung Galaxy A10s Kernel  
 ***  
-Detail:gsmaren](https://www.gsmarena.com/samsung_galaxy_a10s-9793.php)  
+Detail:[gsmaren](https://www.gsmarena.com/samsung_galaxy_a10s-9793.php)  
 Kernel Version:4.19.127  
 Support KernelSU  
 ***  
