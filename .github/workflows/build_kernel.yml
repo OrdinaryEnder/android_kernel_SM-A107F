@@ -133,4 +133,4 @@ jobs:
       
       with:
           name: final-kernal
-          path: out/*
+          path: out/arch/arm64/*
