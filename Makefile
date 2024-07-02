@@ -3,7 +3,7 @@ VERSION = 4
 PATCHLEVEL = 19
 SUBLEVEL = 127
 EXTRAVERSION =
-NAME = "People's Front"
+NAME = "Niggaz @OrdinaryEnder Kernel"
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
