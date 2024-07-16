@@ -88,7 +88,12 @@ jobs:
     - name: Build Kernel-With-KernelSU
     # V0.9.5 is the last version that supports 4.14, sorry.
       run: |
+        rm -rf KernelSU
 
+        rm -rf drivers/kernelsu
+
+        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
+        
         export PATH=$PATH:$(pwd)/proton-clang/bin/
         export CC=clang
         export CLANG_TRIPLE=aarch64-linux-gnu-
